@@ -1,0 +1,35 @@
+{
+    "editor.fontSize": 14,
+    "C_Cpp.errorSquiggles": "disabled",
+    "files.associations": {
+        "stm32f10x_tim.h": "c",
+        "delay.h": "c",
+        "timer.h": "c",
+        "stm32f10x.h": "c",
+        "stm32f10x_gpio.h": "c",
+        "key.h": "c",
+        "oled.h": "c",
+        "led.h": "c"
+    },
+
+    
+    "VsCodeTaskButtons.showCounter": true,
+    "VsCodeTaskButtons.tasks": [
+        {
+            "label": "$(notebook-move-down) Build",
+            "task": "build",
+            "tooltip": "🛠️ Start the \"build\" task"
+        },
+        {
+            "label": "$(notebook-delete-cell) Clean build",
+            "task": "clean",
+            "tooltip": "🧹 Start a \"clean\" task"
+        },
+        {
+            "label": "$(notebook-move-down) Download",
+            "task": "download",
+            "tooltip": "Download Hex in stm32f103c8t6 the \"download\" task"
+        }
+    ]
+    
+}
