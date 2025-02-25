@@ -24,11 +24,14 @@ SRCS = \
 	Library/stm32f10x_rcc.c \
 	Library/stm32f10x_usart.c \
 	Library/stm32f10x_tim.c \
+	Library/stm32f10x_adc.c \
 	Library/misc.c \
 	System/Delay.c \
 	System/Timer.c \
 	Hardware/Key.c \
+	Hardware/RP.c \
 	Hardware/LED.c \
+    Hardware/syscalls.c \
 	Hardware/OLED.c \
 	Hardware/OLED_Data.c \
 	Start/startup_stm32f10x_md.s

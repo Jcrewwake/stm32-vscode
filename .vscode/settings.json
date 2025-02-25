@@ -9,7 +9,16 @@
         "stm32f10x_gpio.h": "c",
         "key.h": "c",
         "oled.h": "c",
-        "led.h": "c"
+        "led.h": "c",
+        "stdio.h": "c",
+        "string.h": "c",
+        "stdint.h": "c",
+        "misc.h": "c",
+        "rp.h": "c",
+        "stm32f10x_conf.h": "c",
+        "stm32f10x_adc.h": "c",
+        "stm32f10x_rcc.h": "c",
+        "math.h": "c"
     },
 
     

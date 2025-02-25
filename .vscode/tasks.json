@@ -4,9 +4,7 @@
         {
             "label": "build",
             "type": "shell",
-            "command": "make",
-            "args": [
-            ],
+            "command": "./build.ps1",
             "group": {
                 "kind": "build",
                 "isDefault": true
@@ -15,11 +13,11 @@
         {
             "label": "clean",
             "type": "shell",
-            "command": "make",
-            "args": [
-                "clean"
-            ],
-            "group": "build"
+            "command": "./clean.ps1",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
         },
         {
             "label": "download",
@@ -31,7 +29,7 @@
                 "-f",
                 "target/stm32f1x.cfg",
                 "-c",
-                "program MY_PID.hex verify reset exit",
+                "program ./build/MY_PID.hex verify reset exit",
             ],
             "group": "build"
         }
