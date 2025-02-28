@@ -7,7 +7,7 @@
         {
             "name": "STM32 Debug (ST-Link)",
             "cwd": "${workspaceFolder}",
-            "executable": "./MY_PID.elf",
+            "executable": "./build/MY_PID.elf",
             "request": "launch",
             "type": "cortex-debug",
             "servertype": "openocd",
