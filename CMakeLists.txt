@@ -79,7 +79,6 @@ target_link_options(${PROJECT_NAME}.elf PRIVATE
     -lm
     -Wl,--end-group
     -Wl,-u,_printf_float
-    -Wl,--gc-sections
 )
 
 # 生成 HEX/BIN 文件
