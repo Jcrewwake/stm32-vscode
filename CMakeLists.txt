@@ -27,7 +27,7 @@ set(MCU_OPTIONS
 # 编译选项
 add_compile_options(
     ${MCU_OPTIONS}
-    -O0
+    -Os
     -g3
     -Wall
     -fdata-sections
@@ -65,16 +65,21 @@ add_executable(${PROJECT_NAME}.elf
     ${ASSEMBLY_SOURCES}
 )
 
+# 链接库
+target_link_libraries(${PROJECT_NAME}.elf PRIVATE m)
 # 链接选项配置
 target_link_options(${PROJECT_NAME}.elf PRIVATE
     ${MCU_OPTIONS}
     -T${CMAKE_SOURCE_DIR}/stm32f103c8_flash.ld
     -Wl,--gc-sections
     -specs=nano.specs
+    -specs=nosys.specs
     -Wl,--start-group
     -lc
     -lm
     -Wl,--end-group
+    -Wl,-u,_printf_float
+    -Wl,--gc-sections
 )
 
 # 生成 HEX/BIN 文件

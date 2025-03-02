@@ -9,8 +9,8 @@ MEMORY
 }
 
 /* 定义堆和栈的最小大小 */
-_Min_Heap_Size = 0x200;   /* 最小堆大小 512B */
-_Min_Stack_Size = 0x400;  /* 最小栈大小 1KB */
+_Min_Heap_Size = 2K;   /* 最小堆大小 2Kb */
+_Min_Stack_Size = 2K;  /* 最小栈大小 2KB */
 
 /* 定义程序段如何分配到存储区域 */
 SECTIONS

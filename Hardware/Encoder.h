@@ -4,6 +4,6 @@
 #include <stdint.h>
 
 void Encoder_Init(void);
-uint16_t Encoder_Get(void);
+int16_t Encoder_Get(void);
 
 #endif

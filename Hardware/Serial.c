@@ -5,6 +5,7 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <stdarg.h>
+#include <math.h>
 
 uint8_t Serial_RxData;
 uint8_t Serial_RxFlag;
@@ -61,18 +62,11 @@ void Serial_SendString(char *str) {
     }
 }
 
-uint32_t pow(uint32_t x, uint32_t y) {
-    uint32_t res = 1;
-    while (y--) {
-        res *= x;
-    }
-    return res;
-}
 
 void Serial_SendNumber(uint32_t num, uint8_t len) {
     uint8_t i;
     for (i = 0; i < len; i++) {
-        Serial_SendByte((num / pow(10,len - i - 1)) % 10 + '0');
+        Serial_SendByte((num / (int)pow(10, len - i - 1)) % 10 + '0');
     }
 }
 
