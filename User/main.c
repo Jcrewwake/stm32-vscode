@@ -16,7 +16,7 @@ uint8_t Key_Num;
 
 float Target, Actual, Out;
 float Kp = 0.20, Ki = 0.20, Kd = 0;
-float Error0, Error1, Error2;
+float Error0, Error1, ErrorInt;
 
 int main(void)
 {
@@ -68,11 +68,16 @@ void TIM1_UP_IRQHandler(void)
             cnt = 0;
             Actual += (float)Encoder_Get();
             
-            Error2 = Error1;
             Error1 = Error0;
             Error0 = Target - Actual;
 
-            Out += Kp * (Error0 - Error1) + Ki * Error0 + Kd * (Error0 - 2*Error1 + Error2);
+            if (fabs(Error0) > FLT_EPSILON) {
+                ErrorInt += Error0;
+            } else {
+                ErrorInt = 0;
+            }
+
+            Out = Kp * Error0 + Ki * ErrorInt + Kd * (Error0 - Error1);
 
             if (Out > 100) {
                 Out = 100;
