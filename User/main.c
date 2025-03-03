@@ -29,7 +29,7 @@ int main(void)
 
     Timer_Init();
 
-    OLED_Printf(0, 0, OLED_8X16, "Speed Control?");
+    OLED_Printf(0, 0, OLED_8X16, "Location Control");
     OLED_Update();
 
     while (1) {
@@ -41,7 +41,7 @@ int main(void)
         // } else if (Key_Num & 0x04) {
         //     Target = 0;
         // }
-        Target = (float)RP_Read(4) / 4096 * 300 - 150;
+        Target = (float)RP_Read(4) / 4096 * 816 - 408;
         Kp = (float)RP_Read(1) / 4096 * 2;
         Ki = (float)RP_Read(2) / 4096 * 2;
         Kd = (float)RP_Read(3) / 4096 * 2;
@@ -66,7 +66,7 @@ void TIM1_UP_IRQHandler(void)
         cnt++;
         if (cnt >= 40) {
             cnt = 0;
-            Actual = (float)Encoder_Get();
+            Actual += (float)Encoder_Get();
             
             Error2 = Error1;
             Error1 = Error0;
