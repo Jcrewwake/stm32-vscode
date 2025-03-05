@@ -14,6 +14,8 @@
 
 uint8_t Key_Num;
 
+uint8_t Motor_Runing_Flag = 1;
+
 float Target, Actual, Out;
 float Kp = 0.20, Ki = 0.20, Kd = 0;
 float Error0, Error1, ErrorInt;
@@ -21,6 +23,7 @@ float Error0, Error1, ErrorInt;
 int main(void)
 {
     OLED_Init();
+    LED_Init();
     Key_Init();
     RP_Init();
     Motor_Init();
@@ -33,14 +36,23 @@ int main(void)
     OLED_Update();
 
     while (1) {
-        // Key_Num = Get_Key_Num();
-        // if (Key_Num & 0x01) {
-        //     Target += 10;
-        // } else if (Key_Num & 0x02) {
+        Key_Num = Get_Key_Num();
+        if (Key_Num & 0x01) {
+            // Target += 10;
+            Motor_Runing_Flag = !Motor_Runing_Flag;
+        } 
+        // else if (Key_Num & 0x02) {
         //     Target -= 10;
         // } else if (Key_Num & 0x04) {
         //     Target = 0;
         // }
+
+        if (Motor_Runing_Flag) {
+            LED_ON();
+        } else {
+            LED_OFF();
+        }
+
         Target = (float)RP_Read(4) / 4096 * 300 - 150;
         Kp = (float)RP_Read(1) / 4096 * 2;
         Ki = (float)RP_Read(2) / 4096 * 2;
@@ -53,7 +65,7 @@ int main(void)
         OLED_Printf(64, 48, OLED_8X16, "Out:%+04.0f", Out);
         // OLED_ShowFloatNum(0, 16, Target, 3, 0, OLED_8X16);
         OLED_Update();
-        Serial_Printf("%f,%f,%f\r\n", Target, Actual, Out);
+        Serial_Printf("%f,%f,%f,%f\r\n", Target, Actual, Out, ErrorInt);
     }
 }
 
@@ -77,6 +89,12 @@ void TIM1_UP_IRQHandler(void)
                 ErrorInt = 0;
             }
 
+            if (ErrorInt > 100 / Ki) {
+                ErrorInt = 100 / Ki;
+            }else if (ErrorInt < -100 / Ki) {
+                ErrorInt = -100 / Ki;
+            }
+
             Out = Kp * Error0 + Ki * ErrorInt + Kd * (Error0 - Error1);
 
             if (Out > 100) {
@@ -84,8 +102,10 @@ void TIM1_UP_IRQHandler(void)
             } else if (Out < -100) {
                 Out = -100;
             }
-            Motor_SetPWM(Out);
-
+            if (Motor_Runing_Flag)
+                Motor_SetPWM(Out);
+            else
+                Motor_SetPWM(0);
         }
         TIM_ClearITPendingBit(TIM1, TIM_IT_Update);
     }
