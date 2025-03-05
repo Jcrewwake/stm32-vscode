@@ -71,7 +71,7 @@ void TIM1_UP_IRQHandler(void)
             Error1 = Error0;
             Error0 = Target - Actual;
 
-            if (fabs(Error0) > FLT_EPSILON) {
+            if ((fabs(Error0) > FLT_EPSILON) && (fabs(Error0) < 50)) {
                 ErrorInt += Error0;
             } else {
                 ErrorInt = 0;
